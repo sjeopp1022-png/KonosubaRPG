@@ -1,31 +1,65 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using TMPro;
 using UnityEngine.UI;
 
-/// <summary>
-/// 타이틀 화면 제어
-/// 시작 버튼, BGM, 씬 이동 담당
-/// </summary>
 public class TitleManager : MonoBehaviour
 {
-    [Header("다음 씬 이름")]
+    [Header("이동할 씬")]
     public string nextSceneName = "02_Home";
 
-    [Header("시작 버튼")]
-    public Button startButton;
+
+    [Header("버튼")]
+    public Button touchToStartButton;
+    public Button resetButton;
+
+
+    [Header("초기화 확인 패널")]
+    public GameObject resetConfirmPanel;
+    public Button yesButton;
+    public Button noButton;
+
 
     private void Start()
     {
-        startButton.onClick.AddListener(OnClickStart);
+        touchToStartButton.onClick.AddListener(StartGame);
 
-        Debug.Log("Title 시작");
+        resetButton.onClick.AddListener(OpenResetPanel);
+
+        yesButton.onClick.AddListener(ResetData);
+
+        noButton.onClick.AddListener(CloseResetPanel);
+
+
+        resetConfirmPanel.SetActive(false);
     }
 
-    private void OnClickStart()
-    {
-        Debug.Log("게임 시작 버튼 클릭");
 
-        SceneManager.LoadScene(nextSceneName);
+    private void StartGame()
+    {
+        Debug.Log("02_Home 이동");
+
+        SceneLoader.Instance.LoadScene(nextSceneName);
+    }
+
+
+    private void OpenResetPanel()
+    {
+        resetConfirmPanel.SetActive(true);
+    }
+
+
+    private void CloseResetPanel()
+    {
+        resetConfirmPanel.SetActive(false);
+    }
+
+
+    private void ResetData()
+    {
+        Debug.Log("데이터 초기화");
+
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save();
+
+        resetConfirmPanel.SetActive(false);
     }
 }
