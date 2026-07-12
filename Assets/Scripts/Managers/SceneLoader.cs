@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 /// <summary>
 /// 씬 전환을 담당하는 매니저
@@ -7,16 +8,21 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class SceneLoader : MonoBehaviour
 {
-    // 싱글톤
     public static SceneLoader Instance;
+
+
+    [Header("로딩 설정")]
+    [SerializeField]
+    private float minimumLoadingTime = 2f;
+
 
     private void Awake()
     {
-        // 싱글톤 설정
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // 씬 바뀌어도 유지
+
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -24,21 +30,82 @@ public class SceneLoader : MonoBehaviour
         }
     }
 
+
     /// <summary>
-    /// 씬 이름으로 이동
+    /// 씬 이동 시작
     /// </summary>
     public void LoadScene(string sceneName)
     {
-        Debug.Log("씬 이동: " + sceneName);
-        SceneManager.LoadScene(sceneName);
+        StartCoroutine(LoadSceneAsync(sceneName));
     }
+
+
+    /// <summary>
+    /// 비동기 씬 로딩
+    /// </summary>
+    private IEnumerator LoadSceneAsync(string sceneName)
+    {
+        float loadingTimer = 0f;
+
+
+        // 로딩 화면 표시
+        if (UIManager.Instance != null)
+        {
+            UIManager.Instance.SetLoading(true);
+        }
+
+
+        AsyncOperation operation =
+            SceneManager.LoadSceneAsync(sceneName);
+
+
+        while (!operation.isDone || loadingTimer < minimumLoadingTime)
+        {
+            loadingTimer += Time.deltaTime;
+
+
+            float sceneProgress =
+                Mathf.Clamp01(operation.progress / 0.9f);
+
+
+            float timeProgress =
+                Mathf.Clamp01(loadingTimer / minimumLoadingTime);
+
+
+            float progress =
+                Mathf.Min(sceneProgress, timeProgress);
+
+
+            if (UIManager.Instance != null)
+            {
+                UIManager.Instance.SetLoadingProgress(progress);
+            }
+
+
+            yield return null;
+        }
+
+
+        // 100% 표시
+        if (UIManager.Instance != null)
+        {
+            UIManager.Instance.SetLoadingProgress(1f);
+
+            yield return new WaitForSeconds(0.2f);
+
+            UIManager.Instance.SetLoading(false);
+        }
+    }
+
 
     /// <summary>
     /// 현재 씬 재시작
     /// </summary>
     public void ReloadScene()
     {
-        Scene current = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(current.name);
+        Scene current =
+            SceneManager.GetActiveScene();
+
+        LoadScene(current.name);
     }
 }
