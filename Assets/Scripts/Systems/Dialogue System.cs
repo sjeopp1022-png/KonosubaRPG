@@ -1,32 +1,17 @@
 using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
-using System.Collections;
 
 public class DialogueSystem : MonoBehaviour
 {
     public static DialogueSystem Instance;
 
 
-    [Header("UI")]
-    public GameObject dialoguePanel;
-
-    public Image characterImage;
-
-    public TMP_Text nameText;
-
-    public TMP_Text dialogueText;
-
-    public Button nextButton;
+    [Header("현재 DialogueBox")]
+    public DialogueBox currentDialogueBox;
 
 
-    [Header("설정")]
-    public float typingSpeed = 0.05f;
+    // 현재 대사를 진행하는 시스템
+    private System.Action nextAction;
 
-
-    private string currentText;
-
-    private Coroutine typingCoroutine;
 
 
     private void Awake()
@@ -42,66 +27,68 @@ public class DialogueSystem : MonoBehaviour
     }
 
 
-    private void Start()
+
+    // 사용할 DialogueBox 변경
+    public void SetDialogueBox(DialogueBox box)
     {
-        nextButton.onClick.AddListener(Next);
-    }
-
-
-    public void ShowDialogue(string speaker, string text, Sprite image = null)
-    {
-        dialoguePanel.SetActive(true);
-
-
-        nameText.text = speaker;
-
-
-        if (image != null)
-        {
-            characterImage.sprite = image;
-        }
-
-
-        currentText = text;
-
-
-        if (typingCoroutine != null)
-        {
-            StopCoroutine(typingCoroutine);
-        }
-
-
-        typingCoroutine = StartCoroutine(TypeText());
+        currentDialogueBox = box;
     }
 
 
 
-    private IEnumerator TypeText()
+    // 다음 버튼 동작 설정
+    public void SetNextAction(System.Action action)
     {
-        dialogueText.text = "";
-
-
-        foreach (char letter in currentText)
-        {
-            dialogueText.text += letter;
-
-            yield return new WaitForSeconds(typingSpeed);
-        }
+        nextAction = action;
     }
 
 
 
-    private void Next()
+    // 대사 출력
+    public void ShowDialogue(
+        string speaker,
+        string text,
+        Sprite image = null)
+    {
+        if(currentDialogueBox == null)
+        {
+            Debug.LogError("DialogueBox가 없습니다.");
+            return;
+        }
+
+
+        currentDialogueBox.Show(
+            speaker,
+            text,
+            image
+        );
+    }
+
+
+
+    // Next 버튼 호출
+    public void Next()
     {
         Debug.Log("다음 대사");
-        
-        // 다음 단계에서 Story System 연결
+
+
+        if(nextAction != null)
+        {
+            nextAction.Invoke();
+        }
+        else
+        {
+            Debug.LogWarning("다음 진행 대상이 없습니다.");
+        }
     }
 
 
 
     public void HideDialogue()
     {
-        dialoguePanel.SetActive(false);
+        if(currentDialogueBox != null)
+        {
+            currentDialogueBox.Hide();
+        }
     }
 }

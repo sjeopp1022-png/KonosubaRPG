@@ -8,13 +8,15 @@ public class HomeManager : MonoBehaviour
     public GameObject tutorialPanel;
 
 
+
     private void Start()
     {
         StartHomeStory();
     }
 
 
-    // 홈 진입 시 첫 스토리 시작
+
+    // 첫 진입 스토리
     private void StartHomeStory()
     {
         menuPanel.SetActive(false);
@@ -23,19 +25,39 @@ public class HomeManager : MonoBehaviour
 
         tutorialPanel.SetActive(false);
 
+
         Debug.Log("홈 첫 스토리 시작");
+
+
+        if(StorySystem.Instance != null)
+        {
+            StorySystem.Instance.StartStory();
+        }
     }
 
 
-    // 스토리 종료 후 메뉴 표시
+
+    // 스토리 종료 후
     public void EndStory()
     {
         storyPanel.SetActive(false);
 
+
+        // 메뉴와 튜토리얼 동시 표시
+        menuPanel.SetActive(true);
+
         tutorialPanel.SetActive(true);
 
-        Debug.Log("튜토리얼 시작");
+
+        Debug.Log("홈 메뉴 + 튜토리얼 시작");
+
+
+        if(TutorialSystem.Instance != null)
+        {
+            TutorialSystem.Instance.StartTutorial();
+        }
     }
+
 
 
     // 튜토리얼 종료
@@ -43,8 +65,7 @@ public class HomeManager : MonoBehaviour
     {
         tutorialPanel.SetActive(false);
 
-        menuPanel.SetActive(true);
 
-        Debug.Log("홈 메뉴 활성화");
+        Debug.Log("튜토리얼 종료");
     }
 }
