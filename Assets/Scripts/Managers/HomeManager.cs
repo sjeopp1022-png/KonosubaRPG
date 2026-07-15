@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HomeManager : MonoBehaviour
 {
@@ -7,65 +8,54 @@ public class HomeManager : MonoBehaviour
     public GameObject storyPanel;
     public GameObject tutorialPanel;
 
+    [Header("로딩")]
+    public GameObject loadingPanel;
 
+    [Header("이동할 씬")]
+    public string guildSceneName = "02_Guild";
 
     private void Start()
     {
         StartHomeStory();
     }
 
-
-
-    // 첫 진입 스토리
+    // 홈 첫 스토리
     private void StartHomeStory()
     {
         menuPanel.SetActive(false);
-
         storyPanel.SetActive(true);
-
         tutorialPanel.SetActive(false);
 
-
-        Debug.Log("홈 첫 스토리 시작");
-
-
-        if(StorySystem.Instance != null)
+        if (StorySystem.Instance != null)
         {
             StorySystem.Instance.StartStory();
         }
     }
 
-
-
-    // 스토리 종료 후
+    // 스토리 종료
     public void EndStory()
     {
         storyPanel.SetActive(false);
 
-
-        // 메뉴와 튜토리얼 동시 표시
-        menuPanel.SetActive(true);
-
         tutorialPanel.SetActive(true);
 
-
-        Debug.Log("홈 메뉴 + 튜토리얼 시작");
-
-
-        if(TutorialSystem.Instance != null)
+        if (TutorialSystem.Instance != null)
         {
             TutorialSystem.Instance.StartTutorial();
         }
     }
-
-
 
     // 튜토리얼 종료
     public void EndTutorial()
     {
         tutorialPanel.SetActive(false);
 
+        menuPanel.SetActive(true);
+    }
 
-        Debug.Log("튜토리얼 종료");
+    // 길드 버튼
+    public void OnClickGuild()
+    {
+        SceneLoader.Instance.LoadScene("03_Guild");
     }
 }

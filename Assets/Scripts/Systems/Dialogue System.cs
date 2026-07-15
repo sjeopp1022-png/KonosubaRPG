@@ -1,18 +1,24 @@
 using UnityEngine;
+using System;
+using System.Collections;
 
 public class DialogueSystem : MonoBehaviour
 {
     public static DialogueSystem Instance;
 
+    [Header("현재 사용할 DialogueBox")]
+    private DialogueBox currentDialogueBox;
 
-    [Header("현재 DialogueBox")]
-    public DialogueBox currentDialogueBox;
+    [Header("타이핑 속도")]
+    public float typingSpeed = 0.03f;
 
+    private Coroutine typingCoroutine;
 
-    // 현재 대사를 진행하는 시스템
-    private System.Action nextAction;
+    private string currentText;
 
+    private bool isTyping = false;
 
+    private Action nextAction;
 
     private void Awake()
     {
@@ -26,69 +32,83 @@ public class DialogueSystem : MonoBehaviour
         }
     }
 
-
-
-    // 사용할 DialogueBox 변경
-    public void SetDialogueBox(DialogueBox box)
+    // 사용할 DialogueBox 지정
+    public void SetDialogueBox(DialogueBox dialogueBox)
     {
-        currentDialogueBox = box;
+        currentDialogueBox = dialogueBox;
+
+        currentDialogueBox.nextButton.onClick.RemoveAllListeners();
+        currentDialogueBox.nextButton.onClick.AddListener(Next);
     }
 
-
-
-    // 다음 버튼 동작 설정
-    public void SetNextAction(System.Action action)
+    // 다음 버튼 동작 지정
+    public void SetNextAction(Action action)
     {
         nextAction = action;
     }
 
-
-
     // 대사 출력
-    public void ShowDialogue(
-        string speaker,
-        string text,
-        Sprite image = null)
+    public void ShowDialogue(string speaker, string dialogue)
     {
-        if(currentDialogueBox == null)
+        if (currentDialogueBox == null)
+            return;
+
+        currentDialogueBox.gameObject.SetActive(true);
+
+        currentDialogueBox.nameText.text = speaker;
+
+        currentText = dialogue;
+
+        if (typingCoroutine != null)
+            StopCoroutine(typingCoroutine);
+
+        typingCoroutine = StartCoroutine(TypeText());
+    }
+
+    private IEnumerator TypeText()
+    {
+        isTyping = true;
+
+        currentDialogueBox.dialogueText.text = "";
+
+        foreach (char c in currentText)
         {
-            Debug.LogError("DialogueBox가 없습니다.");
+            currentDialogueBox.dialogueText.text += c;
+
+            yield return new WaitForSeconds(typingSpeed);
+        }
+
+        isTyping = false;
+    }
+
+    // DialogueBox에서 호출
+    public void Next()
+    {
+        if (currentDialogueBox == null)
+            return;
+
+        // 타이핑 중이면 즉시 출력
+        if (isTyping)
+        {
+            if (typingCoroutine != null)
+                StopCoroutine(typingCoroutine);
+
+            currentDialogueBox.dialogueText.text = currentText;
+
+            isTyping = false;
+
             return;
         }
 
-
-        currentDialogueBox.Show(
-            speaker,
-            text,
-            image
-        );
+        nextAction?.Invoke();
     }
 
-
-
-    // Next 버튼 호출
-    public void Next()
-    {
-        Debug.Log("다음 대사");
-
-
-        if(nextAction != null)
-        {
-            nextAction.Invoke();
-        }
-        else
-        {
-            Debug.LogWarning("다음 진행 대상이 없습니다.");
-        }
-    }
-
-
-
+    // 대사창 숨기기
     public void HideDialogue()
     {
-        if(currentDialogueBox != null)
-        {
-            currentDialogueBox.Hide();
-        }
+        if (currentDialogueBox == null)
+            return;
+
+        currentDialogueBox.gameObject.SetActive(false);
     }
 }

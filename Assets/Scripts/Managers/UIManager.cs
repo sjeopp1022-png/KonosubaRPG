@@ -2,23 +2,20 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-/// <summary>
-/// UI 전체를 관리하는 매니저
-/// (팝업, 로딩 등 공통 UI 담당)
-/// </summary>
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
 
 
-    [Header("기본 UI")]
-    public GameObject loadingPanel;
+    [Header("Loading Canvas")]
+    public GameObject loadingCanvas;
+    public Slider loadingSlider;
+    public TMP_Text loadingText;
+
+
+    [Header("Popup")]
     public GameObject popupPanel;
 
-
-    [Header("로딩 UI")]
-    public Slider loadingSlider;
-    public TextMeshProUGUI loadingText;
 
 
     private void Awake()
@@ -28,6 +25,8 @@ public class UIManager : MonoBehaviour
             Instance = this;
 
             DontDestroyOnLoad(gameObject);
+
+            ResetUI();
         }
         else
         {
@@ -36,81 +35,64 @@ public class UIManager : MonoBehaviour
     }
 
 
-    /// <summary>
-    /// 로딩창 ON/OFF
-    /// </summary>
-    public void SetLoading(bool isOn)
+
+    public void ShowLoading()
     {
-        if (loadingPanel != null)
+        if (loadingCanvas == null)
         {
-            loadingPanel.SetActive(isOn);
+            Debug.LogWarning("LoadingCanvas 없음");
+            return;
         }
 
 
-        if (isOn)
-        {
-            ResetLoading();
-        }
+        loadingCanvas.SetActive(true);
+
+
+        if (loadingSlider != null)
+            loadingSlider.value = 0;
+
+
+        if (loadingText != null)
+            loadingText.text = "Loading... 0%";
+
+
+        Canvas.ForceUpdateCanvases();
     }
 
 
-    /// <summary>
-    /// 로딩 진행도 표시
-    /// </summary>
+
     public void SetLoadingProgress(float progress)
     {
         if (loadingSlider != null)
-        {
             loadingSlider.value = progress;
-        }
 
 
         if (loadingText != null)
-        {
-            int percent = Mathf.RoundToInt(progress * 100);
-
             loadingText.text =
-                "Loading... " + percent + "%";
-        }
+                $"Loading... {(int)(progress * 100)}%";
     }
 
 
-    /// <summary>
-    /// 로딩 UI 초기화
-    /// </summary>
-    private void ResetLoading()
+
+    public void HideLoading()
     {
-        if (loadingSlider != null)
-        {
-            loadingSlider.value = 0;
-        }
-
-
-        if (loadingText != null)
-        {
-            loadingText.text = "Loading... 0%";
-        }
+        if (loadingCanvas != null)
+            loadingCanvas.SetActive(false);
     }
 
 
-    /// <summary>
-    /// 팝업창 ON/OFF
-    /// </summary>
-    public void SetPopup(bool isOn)
+
+    public void SetPopup(bool on)
     {
         if (popupPanel != null)
-        {
-            popupPanel.SetActive(isOn);
-        }
+            popupPanel.SetActive(on);
     }
 
 
-    /// <summary>
-    /// 모든 UI 초기화
-    /// </summary>
+
     public void ResetUI()
     {
-        SetLoading(false);
+        HideLoading();
         SetPopup(false);
     }
 }
