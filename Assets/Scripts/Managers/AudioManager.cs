@@ -8,6 +8,9 @@ public class AudioManager : MonoBehaviour
     public AudioSource bgmSource;
     public AudioSource sfxSource;
 
+    [Header("Audio Data")]
+    public AudioData titleAudioData;
+
     private AudioClip currentBGM;
 
     private void Awake()
@@ -16,6 +19,12 @@ public class AudioManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+
+            // 타이틀 BGM 재생
+            if (titleAudioData != null)
+            {
+                PlayBGM(titleAudioData.bgm);
+            }
         }
         else
         {
@@ -30,7 +39,6 @@ public class AudioManager : MonoBehaviour
         if (clip == null)
             return;
 
-        // 같은 음악이면 다시 재생하지 않음
         if (currentBGM == clip && bgmSource.isPlaying)
             return;
 
