@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0291b79e3ba3742409c17c9d2b31ae10, type: 3}
   m_Name: TitleAudioData
   m_EditorClassIdentifier: Assembly-CSharp::AudioData
-  bgm: {fileID: 0}
+  bgm: {fileID: 8300000, guid: 95c7b72c110d46947a78830885a80c81, type: 3}

@@ -37,6 +37,12 @@ public class SceneLoader : MonoBehaviour
 
         UIManager.Instance.ShowLoading();
 
+        // 로딩 시작과 동시에 BGM 정지
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.StopBGM();
+        }
+
         // UI를 먼저 그리게 한다.
         yield return null;
 

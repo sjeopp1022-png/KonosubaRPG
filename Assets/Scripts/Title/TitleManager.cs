@@ -15,9 +15,6 @@ public class TitleManager : MonoBehaviour
     public Button yesButton;
     public Button noButton;
 
-    [Header("BGM")]
-    public AudioClip titleBGM;   // 타이틀 씬에서 재생할 BGM 클립
-
     private void Start()
     {
         touchToStartButton.onClick.AddListener(StartGame);
@@ -29,16 +26,6 @@ public class TitleManager : MonoBehaviour
         noButton.onClick.AddListener(CloseResetPanel);
 
         resetConfirmPanel.SetActive(false);
-
-        PlayTitleBGM();
-    }
-
-    private void PlayTitleBGM()
-    {
-        if (AudioManager.Instance != null && titleBGM != null)
-        {
-            AudioManager.Instance.PlayBGM(titleBGM);
-        }
     }
 
     private void StartGame()

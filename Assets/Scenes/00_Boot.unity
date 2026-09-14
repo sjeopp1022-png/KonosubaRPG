@@ -845,9 +845,9 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 95c7b72c110d46947a78830885a80c81, type: 3}
+  m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -960,6 +960,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
   bgmSource: {fileID: 805472343}
   sfxSource: {fileID: 805472342}
+  titleAudioData: {fileID: 11400000, guid: a4e25c7977e527644acba1ab42533aca, type: 2}
+  homeAudioData: {fileID: 11400000, guid: 18bfda14d8f5f5f41bd5a201b630a2d9, type: 2}
 --- !u!1 &889061470
 GameObject:
   m_ObjectHideFlags: 0
