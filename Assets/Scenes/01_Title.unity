@@ -489,8 +489,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 220}
-  m_SizeDelta: {x: -1060, y: -940}
+  m_AnchoredPosition: {x: 0, y: 382.5}
+  m_SizeDelta: {x: -1060, y: -815}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &539214198
 MonoBehaviour:
@@ -512,7 +512,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 2043550224769313163, guid: eed4d9dee529ac34ea61c71469e60f6f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -837,7 +837,6 @@ MonoBehaviour:
   resetConfirmPanel: {fileID: 305025266}
   yesButton: {fileID: 2006514312}
   noButton: {fileID: 218876518}
-  titleBGM: {fileID: 8300000, guid: 95c7b72c110d46947a78830885a80c81, type: 3}
 --- !u!4 &670432236
 Transform:
   m_ObjectHideFlags: 0
@@ -1500,14 +1499,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.7056604, b: 0.14568691, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 3014494073669411285, guid: e69e50de71b6a1f498d82b8ea207610a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
