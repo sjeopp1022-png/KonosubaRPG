@@ -1114,8 +1114,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 900, y: 250}
-  m_SizeDelta: {x: 500, y: 1200}
+  m_AnchoredPosition: {x: 900, y: -100}
+  m_SizeDelta: {x: 1100, y: 2100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &982998918
 GameObject:
@@ -1469,8 +1469,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -900, y: 250}
-  m_SizeDelta: {x: 500, y: 1200}
+  m_AnchoredPosition: {x: -850, y: -100}
+  m_SizeDelta: {x: 1100, y: 2100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1249704066
 CanvasRenderer:
@@ -1781,19 +1781,80 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StorySystem
   storyLines:
-  - speaker: "\uC544\uCFE0\uC544"
-    dialogue: "\uD478\uD478\uD478\uD478\uD48B"
+  - speaker: 
+    dialogue: "\uC0AC\uD1A0 \uCE74\uC988\uB9C8 16\uC138 \uC8FD\uB2E4!"
     leftCharacter: {fileID: 0}
     rightCharacter: {fileID: 0}
     speakerPosition: 0
+    background: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+    bgm: {fileID: 0}
+    sfx: {fileID: 0}
+  - speaker: "\uCE74\uC988\uB9C8"
+    dialogue: "\uC5B4, \uC5EC\uAE30\uB294... \uC5B4\uB514\uC9C0?"
+    leftCharacter: {fileID: 1093741205023903773, guid: ad76ce59957774440aa2afc90c04b261, type: 3}
+    rightCharacter: {fileID: 0}
+    speakerPosition: 1
     background: {fileID: 0}
     bgm: {fileID: 0}
     sfx: {fileID: 0}
   - speaker: "\uC544\uCFE0\uC544"
-    dialogue: "\uCFE0\uC2A4\uCFE0\uC2A4\uCFE0\uC2A4"
-    leftCharacter: {fileID: 0}
-    rightCharacter: {fileID: 0}
-    speakerPosition: 0
+    dialogue: "\uC0AC\uD1A0 \uCE74\uC988\uB9C8\uC528, \uB2F9\uC2E0\uC740 \uC8FD\uC5C8\uB2F5\uB2C8\uB2E4.
+      \uC0AC\uD6C4\uC138\uACC4\uC5D0 \uC628 \uAC78 \uD658\uC601\uD574\uC694."
+    leftCharacter: {fileID: 1093741205023903773, guid: ad76ce59957774440aa2afc90c04b261, type: 3}
+    rightCharacter: {fileID: -1525225635678262793, guid: e499d1fab67bab24aa84853ba905b550, type: 3}
+    speakerPosition: 2
+    background: {fileID: 0}
+    bgm: {fileID: 0}
+    sfx: {fileID: 0}
+  - speaker: "\uCE74\uC988\uB9C8"
+    dialogue: "'\uB9DE\uC544, \uB098\uB294 \uD2B8\uB7ED\uC5D0 \uCE58\uC774\uB824\uB358
+      \uC5EC\uC790\uC560\uB97C \uAD6C\uD558\uB2E4\uAC00...'"
+    leftCharacter: {fileID: 1093741205023903773, guid: ad76ce59957774440aa2afc90c04b261, type: 3}
+    rightCharacter: {fileID: -1525225635678262793, guid: e499d1fab67bab24aa84853ba905b550, type: 3}
+    speakerPosition: 1
+    background: {fileID: 0}
+    bgm: {fileID: 0}
+    sfx: {fileID: 0}
+  - speaker: "\uCE74\uC988\uB9C8"
+    dialogue: "\uADF8 \uC5EC\uC790\uC560\uB294... \uC81C\uAC00 \uBC00\uCE5C \uC5EC\uC790\uC560\uB294
+      \uBB34\uC0AC\uD55C\uAC00\uC694?"
+    leftCharacter: {fileID: 1093741205023903773, guid: ad76ce59957774440aa2afc90c04b261, type: 3}
+    rightCharacter: {fileID: -1525225635678262793, guid: e499d1fab67bab24aa84853ba905b550, type: 3}
+    speakerPosition: 1
+    background: {fileID: 0}
+    bgm: {fileID: 0}
+    sfx: {fileID: 0}
+  - speaker: "\uC544\uCFE0\uC544"
+    dialogue: "\uC0B4\uC544\uC788\uC5B4\uC694. \uB2E4\uB9AC\uAC00 \uBD80\uB7EC\uC9C0\uAE34
+      \uD588\uC9C0\uB9CC..."
+    leftCharacter: {fileID: 1093741205023903773, guid: ad76ce59957774440aa2afc90c04b261, type: 3}
+    rightCharacter: {fileID: -1525225635678262793, guid: e499d1fab67bab24aa84853ba905b550, type: 3}
+    speakerPosition: 2
+    background: {fileID: 0}
+    bgm: {fileID: 0}
+    sfx: {fileID: 0}
+  - speaker: "\uCE74\uC988\uB9C8"
+    dialogue: "'\uB2E4\uD589\uC774\uB2E4...'"
+    leftCharacter: {fileID: 1093741205023903773, guid: ad76ce59957774440aa2afc90c04b261, type: 3}
+    rightCharacter: {fileID: -1525225635678262793, guid: e499d1fab67bab24aa84853ba905b550, type: 3}
+    speakerPosition: 1
+    background: {fileID: 0}
+    bgm: {fileID: 0}
+    sfx: {fileID: 0}
+  - speaker: "\uC544\uCFE0\uC544"
+    dialogue: "\uB2F9\uC2E0\uC774 \uBC00\uCE58\uC9C0\uB9CC \uC54A\uC558\uC5B4\uB3C4
+      \uC544\uBB34 \uB370\uB3C4 \uB2E4\uCE58\uC9C0 \uC54A\uC558\uC744 \uD14C\uC9C0\uB9CC\uC694."
+    leftCharacter: {fileID: 1093741205023903773, guid: ad76ce59957774440aa2afc90c04b261, type: 3}
+    rightCharacter: {fileID: -1525225635678262793, guid: e499d1fab67bab24aa84853ba905b550, type: 3}
+    speakerPosition: 2
+    background: {fileID: 0}
+    bgm: {fileID: 0}
+    sfx: {fileID: 0}
+  - speaker: "\uCE74\uC988\uB9C8"
+    dialogue: "\uB124?"
+    leftCharacter: {fileID: 1093741205023903773, guid: ad76ce59957774440aa2afc90c04b261, type: 3}
+    rightCharacter: {fileID: -1525225635678262793, guid: e499d1fab67bab24aa84853ba905b550, type: 3}
+    speakerPosition: 1
     background: {fileID: 0}
     bgm: {fileID: 0}
     sfx: {fileID: 0}
